@@ -4,14 +4,9 @@ class App
   require_relative 'model/orientation'
   
   @@robot = Robot.new
-  @@settled = false
   
-  def self.settled?
-    @@settled
-  end
-
-  def self.settled!
-    @@settled=true
+  def self.setted?
+    @@robot.setted
   end
 
   def self.report
@@ -48,9 +43,8 @@ loop do
   command, *params = input.split /\s/
   x,y,face = params.first.split(/\s*,\s*/) unless params.first.nil?
   if command == 'PLACE'
-    App.settled!
     App.place(x,y,face)
-  elsif App.settled?
+  elsif App.setted?
     case command
       when 'LEFT'
         App.left
